@@ -1,4 +1,5 @@
 # -*- coding: UTF-8 -*-
+import json
 import random
 from time import time, localtime
 import requests
@@ -128,7 +129,7 @@ def get_ciba():
 
 
 def send_message(to_user, access_token, city_name, weather, max_temperature, min_temperature, note_ch, note_ch2,
-                 note_en, note_en2):
+                 note_en, note_en2, love,loveT):
     url = "https://api.weixin.qq.com/cgi-bin/message/template/send?access_token={}".format(access_token)
     week_list = ["星期日", "星期一", "星期二", "星期三", "星期四", "星期五", "星期六"]
     year = localtime().tm_year
@@ -193,6 +194,14 @@ def send_message(to_user, access_token, city_name, weather, max_temperature, min
             "note_ch2": {
                 "value": note_ch2,
                 "color": get_color()
+            },
+            "love": {
+                "value": love,
+                "color": get_color()
+            },
+            "loveT": {
+                "value": loveT,
+                "color": get_color()
             }
         }
     }
@@ -224,6 +233,32 @@ def send_message(to_user, access_token, city_name, weather, max_temperature, min
         print(response)
 
 
+def get_random_data_from_json_files():
+    directory = '.'  # 当前目录
+
+    # 获取目录下所有json文件
+    files = [f for f in os.listdir(directory) if f.endswith('.json')]
+
+    if not files:
+        return "No json files found in the directory."
+
+    # 随机选择一个json文件
+    file = random.choice(files)
+
+    with open(os.path.join(directory, file), 'r', encoding='utf-8') as f:
+        data = json.load(f)
+
+    data_length = len(data)
+
+    # 生成随机索引
+    random_index = random.randint(1, data_length)
+
+    # 获取随机数据
+    random_data = data[str(random_index)]
+
+    return random_data + "  to 麻秀丽"
+
+
 if __name__ == "__main__":
     try:
         with open("config.txt", encoding="utf-8") as f:
@@ -244,9 +279,18 @@ if __name__ == "__main__":
     # 传入省份和市获取天气信息
     province, city = config["province"], config["city"]
     weather, max_temperature, min_temperature = get_weather(province, city)
-    # 获取词霸每日金句
     note_ch, note_ch2, note_en, note_en2 = get_ciba()
+    loves = get_random_data_from_json_files()
+    if len(loves)>20:
+        love = loves[:20]
+        loveT = loves[20:]
+    else:
+        love =loves
+    print(love)
+    print(loveT)
+
     # 公众号推送消息
     for user in users:
-        send_message(user, accessToken, city, weather, max_temperature, min_temperature, note_ch, note_ch2, note_en, note_en2)
+        send_message(user, accessToken, city, weather, max_temperature, min_temperature, note_ch, note_ch2, note_en,
+                     note_en2, love,loveT)
     os.system("pause")
