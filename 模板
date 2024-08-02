@@ -1,9 +1,10 @@
-早安，麻秀丽
 今日：{{date.DATA}}
 城市：{{city.DATA}}
 天气：{{weather.DATA}}
 最低气温: {{min_temperature.DATA}}
 最高气温: {{max_temperature.DATA}}
+风力: {{ws.DATA}}
+风向: {{wd.DATA}}
 
 
 每日情话：{{love.DATA}}{{loveT.DATA2}}

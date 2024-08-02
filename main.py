@@ -58,13 +58,18 @@ def get_weather(province, city):
     response_json = eval(response_data)
     # print(response_json)
     weatherinfo = response_json["weatherinfo"]
+    print(weatherinfo)
     # 天气
     weather = weatherinfo["weather"]
     # 最高气温
     temp = weatherinfo["temp"]
     # 最低气温
     tempn = weatherinfo["tempn"]
-    return weather, temp, tempn
+    # 风向
+    wd = weatherinfo["wd"]
+    # 风力
+    ws = weatherinfo["ws"]
+    return weather, temp, tempn, wd, ws
 
 
 def get_birthday(birthday, year, today):
@@ -129,7 +134,7 @@ def get_ciba():
 
 
 def send_message(to_user, access_token, city_name, weather, max_temperature, min_temperature, note_ch, note_ch2,
-                 note_en, note_en2, love,loveT):
+                 note_en, note_en2, love, loveT,wd,ws):
     url = "https://api.weixin.qq.com/cgi-bin/message/template/send?access_token={}".format(access_token)
     week_list = ["星期日", "星期一", "星期二", "星期三", "星期四", "星期五", "星期六"]
     year = localtime().tm_year
@@ -201,6 +206,14 @@ def send_message(to_user, access_token, city_name, weather, max_temperature, min
             },
             "loveT": {
                 "value": loveT,
+                "color": get_color()
+            },
+            "wd": {
+                "value": wd,
+                "color": get_color()
+            },
+            "ws": {
+                "value": ws,
                 "color": get_color()
             }
         }
@@ -278,19 +291,17 @@ if __name__ == "__main__":
     users = config["user"]
     # 传入省份和市获取天气信息
     province, city = config["province"], config["city"]
-    weather, max_temperature, min_temperature = get_weather(province, city)
+    weather, max_temperature, min_temperature, wd, ws = get_weather(province, city)
     note_ch, note_ch2, note_en, note_en2 = get_ciba()
     loves = get_random_data_from_json_files()
-    if len(loves)>20:
+    if len(loves) > 20:
         love = loves[:20]
         loveT = loves[20:]
     else:
-        love =loves
-    print(love)
-    print(loveT)
+        love = loves
 
     # 公众号推送消息
     for user in users:
         send_message(user, accessToken, city, weather, max_temperature, min_temperature, note_ch, note_ch2, note_en,
-                     note_en2, love,loveT)
+                     note_en2, love, loveT,wd,ws)
     os.system("pause")
