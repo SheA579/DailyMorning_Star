@@ -299,6 +299,7 @@ if __name__ == "__main__":
         loveT = loves[20:]
     else:
         love = loves
+        loveT =''
 
     # 公众号推送消息
     for user in users:
