@@ -58,7 +58,6 @@ def get_weather(province, city):
     response_json = eval(response_data)
     # print(response_json)
     weatherinfo = response_json["weatherinfo"]
-    print(weatherinfo)
     # 天气
     weather = weatherinfo["weather"]
     # 最高气温
@@ -134,7 +133,7 @@ def get_ciba():
 
 
 def send_message(to_user, access_token, city_name, weather, max_temperature, min_temperature, note_ch, note_ch2,
-                 note_en, note_en2, love, loveT,wd,ws):
+                 note_en, note_en2, love, loveT,loveTT,loveTTT,loveTTTT, wd, ws,one,days,goodMonring):
     url = "https://api.weixin.qq.com/cgi-bin/message/template/send?access_token={}".format(access_token)
     week_list = ["星期日", "星期一", "星期二", "星期三", "星期四", "星期五", "星期六"]
     year = localtime().tm_year
@@ -208,6 +207,18 @@ def send_message(to_user, access_token, city_name, weather, max_temperature, min
                 "value": loveT,
                 "color": get_color()
             },
+            "loveTT": {
+                "value": loveTT,
+                "color": get_color()
+            },
+            "loveTTT": {
+                "value": loveTTT,
+                "color": get_color()
+            },
+            "loveTTTT": {
+                "value": loveTTTT,
+                "color": get_color()
+            },
             "wd": {
                 "value": wd,
                 "color": get_color()
@@ -215,7 +226,19 @@ def send_message(to_user, access_token, city_name, weather, max_temperature, min
             "ws": {
                 "value": ws,
                 "color": get_color()
-            }
+            },
+            "day": {
+                "value": days,
+                "color": get_color()
+            },
+            "one": {
+                "value": one,
+                "color": get_color()
+            },
+            "goodMonring": {
+                "value": goodMonring,
+                "color": get_color()
+            },
         }
     }
 
@@ -265,12 +288,68 @@ def get_random_data_from_json_files():
 
     # 生成随机索引
     random_index = random.randint(1, data_length)
-
     # 获取随机数据
     random_data = data[str(random_index)]
 
     return random_data + "  to 麻秀丽"
 
+
+def getDay():
+    start_date = datetime(2022, 5, 27)
+
+    # 获取当前日期作为结束日期
+    end_date = datetime.now()
+
+    # 计算日期间隔
+    days_diff = (end_date - start_date).days
+
+    return days_diff
+
+def getLenLove(loves):
+    strLen = len(loves)
+    print("strLen", strLen)
+    if strLen<=20:
+        love = loves[:20]
+        loveT = ''
+        loveTT =''
+        loveTTT =''
+        loveTTTT = ""
+        return love,loveT,loveTT,loveTTT,loveTTTT
+    elif 20 < strLen <= 40:
+        love = loves[:20]
+        loveT = loves[20:40]
+        loveTT = ''
+        loveTTT = ''
+        loveTTTT = ""
+        return love,loveT,loveTT,loveTTT,loveTTTT
+    elif 40 < strLen <= 60:
+        love = loves[:20]
+        loveT = loves[20:40]
+        loveTT = loves[40:60]
+        loveTTT = ''
+        loveTTTT = ""
+        return love,loveT,loveTT,loveTTT,loveTTTT
+    elif 60 < strLen <= 80:
+        love = loves[:20]
+        loveT = loves[20:40]
+        loveTT = loves[40:60]
+        loveTTT = loves[60:80]
+        loveTTTT = ""
+        return love,loveT,loveTT,loveTTT,loveTTTT
+    elif 80 < strLen <= 100:
+        love = loves[:20]
+        loveT = loves[20:40]
+        loveTT = loves[40:60]
+        loveTTT = loves[60:80]
+        loveTTTT = loves[80:100]
+        return love, loveT, loveTT, loveTTT,loveTTTT
+    else:
+        love = "我喜欢你。"
+        loveT = ''
+        loveTT =''
+        loveTTT =''
+        loveTTTT = ""
+        return love, loveT, loveTT, loveTTT,loveTTTT
 
 if __name__ == "__main__":
     try:
@@ -294,15 +373,23 @@ if __name__ == "__main__":
     weather, max_temperature, min_temperature, wd, ws = get_weather(province, city)
     note_ch, note_ch2, note_en, note_en2 = get_ciba()
     loves = get_random_data_from_json_files()
-    if len(loves) > 20:
-        love = loves[:20]
-        loveT = loves[20:]
-    else:
-        love = loves
-        loveT =''
 
+    love,loveT,loveTT,loveTTT,loveTTTT =getLenLove(loves)
+    print("love:"+love,"loveT:"+loveT,"loveTT:"+loveTT,"loveTTT:"+loveTTT,"loveTTTT:"+loveTTTT )
+    #
+    # if len(loves) > 20:
+    #     love = loves[:20]
+    #     loveT = loves[20:]
+    # else:
+    #     love = loves
+    #     loveT = ''
+
+    one = "我们下次还会一起看海吗？"
+    day = getDay()
+    goodMonring = "早安，希望你今天开开心心。"
+    print(day)
     # 公众号推送消息
     for user in users:
         send_message(user, accessToken, city, weather, max_temperature, min_temperature, note_ch, note_ch2, note_en,
-                     note_en2, love, loveT,wd,ws)
+                     note_en2, love, loveT,loveTT,loveTTT,loveTTTT, wd, ws,one,day,goodMonring)
     os.system("pause")

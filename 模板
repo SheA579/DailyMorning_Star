@@ -1,3 +1,5 @@
+秀宝，{{goodMonring.DATA}}
+
 今日：{{date.DATA}}
 城市：{{city.DATA}}
 天气：{{weather.DATA}}
@@ -7,21 +9,13 @@
 风向: {{wd.DATA}}
 
 
-每日情话：{{love.DATA}}{{loveT.DATA2}}
+💝左耳的话：{{love.DATA}}{{loveT.DATA}}{{loveTT.DATA}}{{loveTTT.DATA}}{{loveTTTT.DATA}}
 
+生日：💌{{birthday1.DATA}}💌{{birthday2.DATA}}
 
-天气预报说明天有雨，我都能听成明天有你💝
-💌{{birthday1.DATA}}💌{{birthday2.DATA}}
-
-
-今天也要乖乖的多喝水哦(^▽^)
-也要好好养屁屁哦
-
-
-我在等你一起看海。
-
+相识：{{day.DATA}}天
+我们下次还会一起看海吗？
 
 👋每日金句
 ☀{{note_en.DATA}}{{note_en2.DATA}}
 ☀{{note_ch.DATA}}{{note_ch2.DATA}}
-
