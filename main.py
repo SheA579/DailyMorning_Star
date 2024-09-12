@@ -384,7 +384,7 @@ if __name__ == "__main__":
     #     love = loves
     #     loveT = ''
 
-    one = "我们下次还会一起看海吗？"
+    one = ""
     day = getDay()
     goodMonring = "早安，希望你今天开开心心。"
     print(day)
