@@ -8,7 +8,7 @@
 # 模板消息id
 
 #"template_id": "-2KCbtxhZZPqaN-vMxMYhZZH0GuakjKsy1N6H3etd7Y",
-"template_id": "wBXLCzkESFvh3yOfaVe-w-zJeAzaZuHg6TMIokPaw-U",
+"template_id": "LwBMBEaaKRiJqC3fYXueczNZ9An0R0ADH_PXUkXHoQI",
 # 接收公众号消息的微信号，如果有多个，需要在[]里用英文逗号间隔，例如["wx1", "wx2"]
 "user": ["oiKpN6_eFgx8iYI_wijX3YYRY0bo","oiKpN6790aaMgd4o2_tudOIdmAC0"],
 #"user": ["oiKpN6_eFgx8iYI_wijX3YYRY0bo"],

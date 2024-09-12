@@ -14,7 +14,7 @@
 生日：💌{{birthday1.DATA}}💌{{birthday2.DATA}}
 
 相识：{{day.DATA}}天
-我们下次还会一起看海吗？
+🌻 {{one.DATA}}
 
 👋每日金句
 ☀{{note_en.DATA}}{{note_en2.DATA}}
