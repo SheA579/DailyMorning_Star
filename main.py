@@ -352,44 +352,41 @@ def getLenLove(loves):
         return love, loveT, loveTT, loveTTT,loveTTTT
 
 if __name__ == "__main__":
-    try:
-        with open("config.txt", encoding="utf-8") as f:
-            config = eval(f.read())
-    except FileNotFoundError:
-        print("推送消息失败，请检查config.txt文件是否与程序位于同一路径")
+    # 获取当前日期
+    today = datetime.datetime.now()
+
+    # 检查当前日期是否大于10月27日
+    if today.month > 10 or (today.month == 10 and today.day > 27):
+        try:
+            # 读取配置文件
+            with open("config.txt", encoding="utf-8") as f:
+                config = eval(f.read())
+        except FileNotFoundError:
+            print("推送消息失败，请检查config.txt文件是否与程序位于同一路径")
+            os.system("pause")
+            sys.exit(1)
+        except SyntaxError:
+            print("推送消息失败，请检查配置文件格式是否正确")
+            os.system("pause")
+            sys.exit(1)
+
+        # 其余代码继续执行公众号消息推送操作
+        # 获取accessToken
+        accessToken = get_access_token()
+        users = config["user"]
+        province, city = config["province"], config["city"]
+        weather, max_temperature, min_temperature, wd, ws = get_weather(province, city)
+        note_ch, note_ch2, note_en, note_en2 = get_ciba()
+        loves = get_random_data_from_json_files()
+
+        love, loveT, loveTT, loveTTT, loveTTTT = getLenLove(loves)
+        print("love:" + love, "loveT:" + loveT, "loveTT:" + loveTT, "loveTTT:" + loveTTT, "loveTTTT:" + loveTTTT)
+
+        one = ""
+        day = getDay()
+        goodMonring = "早安，希望你今天开开心心。"
+        print(day)
+        for user in users:
+            send_message(user, accessToken, city, weather, max_temperature, min_temperature, note_ch, note_ch2, note_en,
+                         note_en2, love, loveT, loveTT, loveTTT, loveTTTT, wd, ws, one, day, goodMonring)
         os.system("pause")
-        sys.exit(1)
-    except SyntaxError:
-        print("推送消息失败，请检查配置文件格式是否正确")
-        os.system("pause")
-        sys.exit(1)
-
-    # 获取accessToken
-    accessToken = get_access_token()
-    # 接收的用户
-    users = config["user"]
-    # 传入省份和市获取天气信息
-    province, city = config["province"], config["city"]
-    weather, max_temperature, min_temperature, wd, ws = get_weather(province, city)
-    note_ch, note_ch2, note_en, note_en2 = get_ciba()
-    loves = get_random_data_from_json_files()
-
-    love,loveT,loveTT,loveTTT,loveTTTT =getLenLove(loves)
-    print("love:"+love,"loveT:"+loveT,"loveTT:"+loveTT,"loveTTT:"+loveTTT,"loveTTTT:"+loveTTTT )
-    #
-    # if len(loves) > 20:
-    #     love = loves[:20]
-    #     loveT = loves[20:]
-    # else:
-    #     love = loves
-    #     loveT = ''
-
-    one = ""
-    day = getDay()
-    goodMonring = "早安，希望你今天开开心心。"
-    print(day)
-    # 公众号推送消息
-    for user in users:
-        send_message(user, accessToken, city, weather, max_temperature, min_temperature, note_ch, note_ch2, note_en,
-                     note_en2, love, loveT,loveTT,loveTTT,loveTTTT, wd, ws,one,day,goodMonring)
-    os.system("pause")
