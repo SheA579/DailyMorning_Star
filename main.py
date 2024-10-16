@@ -356,7 +356,7 @@ if __name__ == "__main__":
     today = datetime.datetime.now()
 
     # 检查当前日期是否大于10月27日
-    if today.month > 10 or (today.month == 10 and today.day > 27):
+    if today.month == 10 and today.day <= 27:
         try:
             # 读取配置文件
             with open("config.txt", encoding="utf-8") as f:
