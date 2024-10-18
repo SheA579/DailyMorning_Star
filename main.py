@@ -352,8 +352,6 @@ def getLenLove(loves):
         return love, loveT, loveTT, loveTTT,loveTTTT
 
 if __name__ == "__main__":
-    # 获取当前日期
-    today = datetime.datetime.now()
 
     try:
         # 读取配置文件
