@@ -291,11 +291,11 @@ def get_random_data_from_json_files():
     # 获取随机数据
     random_data = data[str(random_index)]
 
-    return random_data + "  to 麻秀丽"
+    return random_data + "  to 周舒萍"
 
 
 def getDay():
-    start_date = datetime(2022, 5, 27)
+    start_date = datetime(2024, 10, 3)
 
     # 获取当前日期作为结束日期
     end_date = datetime.now()

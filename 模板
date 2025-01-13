@@ -1,4 +1,4 @@
-秀宝，{{goodMonring.DATA}}
+蛇蛇，{{goodMonring.DATA}}
 
 今日：{{date.DATA}}
 城市：{{city.DATA}}
