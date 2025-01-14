@@ -1,4 +1,4 @@
-蛇蛇，{{goodMonring.DATA}}
+🐍蛇蛇，{{goodMonring.DATA}}
 
 今日：{{date.DATA}}
 城市：{{city.DATA}}
@@ -9,12 +9,13 @@
 风向: {{wd.DATA}}
 
 
-💝左耳的话：{{love.DATA}}{{loveT.DATA}}{{loveTT.DATA}}{{loveTTT.DATA}}{{loveTTTT.DATA}}
+💗左耳的话：{{love.DATA}}{{loveT.DATA}}{{loveTT.DATA}}{{loveTTT.DATA}}{{loveTTTT.DATA}}
 
-生日：💌{{birthday1.DATA}}💌{{birthday2.DATA}}
+💌生日：{{birthday1.DATA}}
 
-相识：{{day.DATA}}天
-🌻 {{one.DATA}}
+🌻
+♊相识：{{day.DATA}}天
+❤️‍恋爱：{{one.DATA}}天
 
 👋每日金句
 ☀{{note_en.DATA}}{{note_en2.DATA}}
